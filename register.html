@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kayıt - ShopManager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container auth-container">
+    <h1>Kayıt</h1>
+    <form id="registerForm">
+      <label for="email">Email</label>
+      <input type="email" id="email" required />
+
+      <label for="password">Şifre</label>
+      <input type="password" id="password" required minlength="6" />
+
+      <label for="name">İsim</label>
+      <input type="text" id="name" required />
+
+      <button type="submit">Kayıt Ol</button>
+    </form>
+    <p>Zaten hesabınız var mı? <a href="login.html">Giriş Yap</a></p>
+    <div id="registerError" class="error-message"></div>
+  </div>
+
+  <script type="module">
+    import { auth, db, signIn, onAuthStateChanged } from './auth.js';
+    import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
+    import { doc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
+
+    const form = document.getElementById('registerForm');
+    const errorDiv = document.getElementById('registerError');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorDiv.textContent = '';
+
+      const email = form.email.value.trim();
+      const password = form.password.value.trim();
+      const name = form.name.value.trim();
+
+      try {
+        // Создаём пользователя в Firebase Auth
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Добавляем профиль пользователя в Firestore (в коллекцию clients, документ с id=email)
+        await setDoc(doc(db, 'clients', user.email), {
+          name: name,
+          email: user.email,
+          createdAt: serverTimestamp()
+        });
+
+        // Автоматический вход и редирект
+        await signIn(email, password);
+        window.location.href = 'client-dashboard.html';
+
+      } catch (error) {
+        errorDiv.textContent = error.message;
+      }
+    });
+  </script>
+</body>
+</html>
