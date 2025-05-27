@@ -26,41 +26,41 @@ onAuthStateChanged(auth, async (user) => {
     ordersContainer.innerHTML = '';
 
     if (snapshot.empty) {
-      ordersContainer.innerHTML = '<p>Henüz siparişiniz yok.</p>';
+      ordersContainer.innerHTML = '<p>У вас пока нет заказов.</p>';
       return;
     }
 
     snapshot.forEach(docSnap => {
       const order = docSnap.data();
-      const cleanProduct = order.product ? order.product.replace(/^"+|"+$/g, '') : 'Belirtilmedi';
+      const cleanProduct = order.product ? order.product.replace(/^"+|"+$/g, '') : 'Не указан';
 
       const div = document.createElement('div');
       div.className = 'order-card';
       div.innerHTML = `
-        <h3>Sipariş №${docSnap.id}</h3>
-        <p>Ürün: ${cleanProduct}</p>
-        <p>Durum: <strong>${order.status || 'İşlem Bekleniyor'}</strong></p>
-        <p>Sipariş Tarihi: ${order.createdAt?.toDate().toLocaleString() || 'Bilinmiyor'}</p>
-        ${order.trackingNumber ? `<p class="tracking">Takip Numarası: <span class="tracking-number" title="Kopyalamak için tıklayın">${order.trackingNumber}</span></p>` : ''}
+        <h3>Заказ №${docSnap.id}</h3>
+        <p>Товар: ${cleanProduct}</p>
+        <p>Статус: <strong>${order.status || 'Ожидает обработки'}</strong></p>
+        <p>Дата заказа: ${order.createdAt?.toDate().toLocaleString() || 'Неизвестно'}</p>
+        ${order.trackingNumber ? `<p class="tracking">Трек-номер: <span class="tracking-number" title="Нажмите для копирования">${order.trackingNumber}</span></p>` : ''}
       `;
       ordersContainer.appendChild(div);
     });
 
-    // Takip numarası tıklanarak kopyalanması
+    // Обработчик копирования трек-номера по клику
     ordersContainer.addEventListener('click', (e) => {
       if (e.target.classList.contains('tracking-number')) {
         const text = e.target.textContent;
         navigator.clipboard.writeText(text).then(() => {
-          e.target.title = 'Kopyalandı!';
+          e.target.title = 'Скопировано!';
           setTimeout(() => {
-            e.target.title = 'Kopyalamak için tıklayın';
+            e.target.title = 'Нажмите для копирования';
           }, 1500);
         });
       }
     });
 
   } catch (error) {
-    ordersContainer.innerHTML = `<p>Siparişler yüklenirken hata oluştu: ${error.message}</p>`;
+    ordersContainer.innerHTML = `<p>Ошибка при загрузке заказов: ${error.message}</p>`;
     console.error(error);
   }
 });
