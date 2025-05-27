@@ -3,12 +3,12 @@ import { getAuth } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBYSoT1yJgt0upA08gkeZoq-FLI0kmqjYk",
-  authDomain: "shopmanager-c9f0b.firebaseapp.com",
-  projectId: "shopmanager-c9f0b",
-  storageBucket: "shopmanager-c9f0b.appspot.com",
-  messagingSenderId: "1029319736818",
-  appId: "1:1029319736818:web:bbfb48553e318955ec3f6b"
+  apiKey: "AIzaSyAuXmPITC79LJveEea3tIJqX4a6ToRbMp0",
+  authDomain: "shopmanagertr.firebaseapp.com",
+  projectId: "shopmanagertr",
+  storageBucket: "shopmanagertr.firebasestorage.app",
+  messagingSenderId: "403228706121",
+  appId: "1:403228706121:web:99c442b4ed70c5b9c5c698
 };
 
 const app = initializeApp(firebaseConfig);
