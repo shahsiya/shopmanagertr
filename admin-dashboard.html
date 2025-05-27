@@ -1,34 +1,36 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="ru">
 
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Yönetici Paneli - ShopManager</title>
+	<title>Админ Панель - ShopManager</title>
 	<link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 	<header>
-		<h1>Yönetici Paneli</h1>
-		<button id="logoutBtn">Çıkış</button>
+		<h1>Админ Панель</h1>
+		<button id="logoutBtn">Выйти</button>
 	</header>
 
 	<main>
 		<form id="addOrderForm">
-			<h2>Manuel Sipariş Ekle</h2>
-			<input id="clientEmail" type="email" name="email" placeholder="Müşteri Emaili" required />
-			<input id="product" type="text" name="product" placeholder="Ürün Açıklaması" required />
-			<input id="clientName" type="text" name="clientName" placeholder="Müşteri Adı" />
-			<input id="deliveryAdres" type="text" name="deliveryAdres" placeholder="Teslimat Adresi" />
-			<input id="price" type="text" name="price" placeholder="Fiyat" />
-			<input id="status" type="text" name="status" placeholder="Durum (örneğin: işlendi)" />
-			<button type="submit">Sipariş Ekle</button>
+			<h2>Добавить заказ вручную</h2>
+			<input id="clientEmail" type="email" name="email" placeholder="Email клиента" required />
+			<input id="product" type="text" name="product" placeholder="Описание товара" required />
+			<input id="clientName" type="text" name="clientName" placeholder="Имя клиента" />
+			<input id="deliveryAdres" type="text" name="deliveryAdres" placeholder="Адрес доставки" />
+			<input id="price" type="text" name="price" placeholder="Цена" />
+			<input id="status" type="text" name="status" placeholder="Статус (например: обработан)" />
+			<button type="submit">Добавить заказ</button>
 		</form>
 
+
+
 		<div id="ordersContainer">
-			<h2>Tüm Müşteri Siparişleri</h2>
-			<p>Siparişler yükleniyor...</p>
+			<h2>Все заказы клиентов</h2>
+			<p>Загрузка заказов...</p>
 		</div>
 	</main>
 
