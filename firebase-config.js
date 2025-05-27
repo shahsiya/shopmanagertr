@@ -2,7 +2,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebas
 import { getAuth } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 
-cconst firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyAuXmPITC79LJveEea3tIJqX4a6ToRbMp0",
   authDomain: "shopmanagertr.firebaseapp.com",
   projectId: "shopmanagertr",
