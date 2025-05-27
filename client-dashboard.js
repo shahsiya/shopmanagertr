@@ -32,21 +32,21 @@ onAuthStateChanged(auth, async (user) => {
 
     snapshot.forEach(docSnap => {
       const order = docSnap.data();
-      const cleanProduct = order.product ? order.product.replace(/^"+|"+$/g, '') : 'Belirtilmemiş';
+      const cleanProduct = order.product ? order.product.replace(/^"+|"+$/g, '') : 'Belirtilmedi';
 
       const div = document.createElement('div');
       div.className = 'order-card';
       div.innerHTML = `
         <h3>Sipariş №${docSnap.id}</h3>
         <p>Ürün: ${cleanProduct}</p>
-        <p>Durum: <strong>${order.status || 'İşlem bekleniyor'}</strong></p>
+        <p>Durum: <strong>${order.status || 'İşlem Bekleniyor'}</strong></p>
         <p>Sipariş Tarihi: ${order.createdAt?.toDate().toLocaleString() || 'Bilinmiyor'}</p>
         ${order.trackingNumber ? `<p class="tracking">Takip Numarası: <span class="tracking-number" title="Kopyalamak için tıklayın">${order.trackingNumber}</span></p>` : ''}
       `;
       ordersContainer.appendChild(div);
     });
 
-    // Takip numarasını tıklayınca kopyalama işlemi
+    // Takip numarası tıklanarak kopyalanması
     ordersContainer.addEventListener('click', (e) => {
       if (e.target.classList.contains('tracking-number')) {
         const text = e.target.textContent;
@@ -60,7 +60,7 @@ onAuthStateChanged(auth, async (user) => {
     });
 
   } catch (error) {
-    ordersContainer.innerHTML = `<p>Siparişleri yüklerken hata oluştu: ${error.message}</p>`;
+    ordersContainer.innerHTML = `<p>Siparişler yüklenirken hata oluştu: ${error.message}</p>`;
     console.error(error);
   }
 });
