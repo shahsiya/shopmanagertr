@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kayıt - ShopManager</title>
+  <title>Регистрация - ShopManager</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container auth-container">
-    <h1>Kayıt</h1>
+    <h1>Регистрация</h1>
     <form id="registerForm">
-      <label for="email">E-posta</label>
+      <label for="email">Email</label>
       <input type="email" id="email" required />
 
-      <label for="password">Parola</label>
+      <label for="password">Пароль</label>
       <input type="password" id="password" required minlength="6" />
 
-      <label for="name">İsim</label>
+      <label for="name">Имя</label>
       <input type="text" id="name" required />
 
-      <button type="submit">Kayıt Ol</button>
+      <button type="submit">Зарегистрироваться</button>
     </form>
-    <p>Zaten hesabınız var mı? <a href="login.html">Giriş Yap</a></p>
+    <p>Уже есть аккаунт? <a href="login.html">Войти</a></p>
     <div id="registerError" class="error-message"></div>
   </div>
 
@@ -42,18 +42,18 @@
       const name = form.name.value.trim();
 
       try {
-        // Firebase Auth'da kullanıcı oluştur
+        // Создаём пользователя в Firebase Auth
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Firestore'da kullanıcı profili ekle (clients koleksiyonunda, id=email olan belge)
+        // Добавляем профиль пользователя в Firestore (в коллекцию clients, документ с id=email)
         await setDoc(doc(db, 'clients', user.email), {
           name: name,
           email: user.email,
           createdAt: serverTimestamp()
         });
 
-        // Otomatik giriş ve yönlendirme
+        // Автоматический вход и редирект
         await signIn(email, password);
         window.location.href = 'client-dashboard.html';
 
